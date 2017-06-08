@@ -1,0 +1,37 @@
+{
+  "name": "@rispa/redux",
+  "version": "0.1.0",
+  "description": "rispa redux plugin",
+  "dependencies": {
+    "@rispa/core": "^0.1.0",
+    "react": "15.5.4",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "redux": "^3.6.0",
+    "react-router-dom": "^4.1.1",
+    "react-redux": "^5.0.4",
+    "redux-logger": "^3.0.1",
+    "redux-loop": "^2.2.2",
+    "redux-act": "^1.0.0"
+  },
+  "devDependencies": {
+    "@rispa/eslint-config": "^0.1.0",
+    "jest": "^19.0.2"
+  },
+  "scripts": {
+    "lint": "rispa-eslint",
+    "lint:fix": "rispa-eslint --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
+  }
+}
