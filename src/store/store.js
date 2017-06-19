@@ -14,12 +14,20 @@ const makeRootReducer = asyncReducers => combineReducers({
   ...asyncReducers,
 })
 
-const configureStore = (history, data) => {
+const configureStore = (history, data, customCompose) => {
   const reduxRouterMiddleware = routerMiddleware(history)
 
-  const finalCreateStore = compose(
+  const middlewares = []
+  if (process.env.NODE_ENV === 'development') {
+    middlewares.push(logger)
+  }
+  middlewares.push(reduxRouterMiddleware)
+
+  const composeEnhancers = customCompose || compose
+
+  const finalCreateStore = composeEnhancers(
     installReduxLoop(),
-    applyMiddleware(logger, reduxRouterMiddleware),
+    applyMiddleware(...middlewares),
   )(createStore)
 
   const store = finalCreateStore(makeRootReducer(), data)
