@@ -1,5 +1,6 @@
 {
   "name": "@rispa/redux",
+  "rispa:name": "redux",
   "version": "1.0.0",
   "description": "rispa redux plugin",
   "dependencies": {
