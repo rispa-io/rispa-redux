@@ -8,4 +8,5 @@ __tests__
 .eslintignore
 .editorconfig
 .eslintrc.js
+*.test.js
 rispa-redux-*
