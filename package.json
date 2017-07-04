@@ -1,10 +1,10 @@
 {
   "name": "@rispa/redux",
   "rispa:name": "redux",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "rispa redux plugin",
   "dependencies": {
-    "@rispa/core": "2.0.0",
+    "@rispa/core": "2.0.1",
     "react": "15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
@@ -15,7 +15,7 @@
     "redux-loop": "^2.2.2"
   },
   "devDependencies": {
-    "@rispa/eslint-config": "2.0.0",
+    "@rispa/eslint-config": "2.0.1",
     "jest": "^19.0.2"
   },
   "scripts": {
