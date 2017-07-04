@@ -15,12 +15,12 @@
     "redux-loop": "^2.2.2"
   },
   "devDependencies": {
-    "@rispa/eslint-config": "^1.1.0",
+    "@rispa/eslint-config": "^2.0.0",
     "jest": "^19.0.2"
   },
   "scripts": {
-    "lint": "rispa-eslint",
-    "lint:fix": "rispa-eslint --fix",
+    "lint": "rispa-eslint .",
+    "lint:fix": "rispa-eslint . --fix",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
