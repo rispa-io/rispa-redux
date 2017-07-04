@@ -1,0 +1,31 @@
+language: node_js
+
+node_js:
+  - "stable"
+
+sudo: false
+
+git:
+  depth: 1
+
+install:
+  - yarn global add @rispa/test-utils@latest
+
+script:
+  - ris-test-utils init
+  - ris-test-utils run redux lint
+  - ris-test-utils run redux test:coverage
+
+notifications:
+  slack:
+    rooms:
+      - secure: "jiMi3v4Tp90n/HBw7qpbjS+fNMLakCEh/KoNPtCFdr5pXzKPMoR9OlmIWHLKe3cmK0NV9x1oz85hhKsO0U7BgFlaiSdjJ1JWCnhL9FPrZsymY5B4+WQSbMm0B6yg+iTrOlzKbikmrelY4bu0KqiZH4jacH8jfj2jV5Q3fLEfxxCG9bScPAMuIO0R0eF5Jx5jZkKWnkneHQvSYxnSuQfW8HE9BbuGJrpSI6xXLfeRzH9eG1fREJHX9rIWJL5Lq9dbrdczr4bk4GECTnztYZojbOPPmug1OsUEYfMAi4XPvkkpYN7xZlaK26JDAaKHxsCNfkxxvUq6Miv1lpxFZk8bFFESaFp02W7CmFE2AyljQ2rvZXLO31nO+yZITCLRcNBqIR0IJmWn3p3KTYR7qt3WnwTL90sGt7OZrUeYq88vayBhl1CQcGOgD2ymccI4u14NfC4cxw7h6cjsGFcE0kKN1b+Fg27vsZtQkFUzBcuxAZriEAFTJWTytGmIBiFDTB+k6cY1L0Y4lT7kNPoGhgMT6F3MpMzlDrQJcI7MgxbtoQY+3ZBBMhLYSaSNK/M3x/pkVkw+QYUxX/kH8ZFwvwvFtw6o6o65qbltodHMkfM8fSKfscNWfAgSSd/ejuQSFIVhh5WZEzGRFkzYmpuD85/9/BuNd3uHxoBEAs2nqk7T3Ak="
+    on_success: always
+    on_failure: always
+    on_start: never
+
+cache:
+  yarn: true
+
+  directories:
+      - $TRAVIS_BUILD_DIR/../rispa-project
