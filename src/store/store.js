@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import logger from 'redux-logger'
 import routerMiddleware from 'react-router-redux/middleware'
 import { routerReducer } from 'react-router-redux/reducer'
-import { install as installReduxLoop, combineReducers } from 'redux-loop'
+import { install as installReduxLoop, combineReducers } from '@csssr/redux-loop'
 
 const patchStore = (store, key, data) => {
   const state = store.getState()

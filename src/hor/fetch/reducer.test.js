@@ -1,4 +1,4 @@
-import { Effects, getModel, getEffect } from 'redux-loop'
+import { Effects, getModel, getEffect } from '@csssr/redux-loop'
 import fetchGenerator from './reducer'
 
 const REDUCER_KEY = 'TEST'

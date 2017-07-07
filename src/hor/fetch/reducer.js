@@ -1,5 +1,5 @@
 import { createReducer, createAction } from 'redux-act'
-import { loop, Effects } from 'redux-loop'
+import { loop, Effects } from '@csssr/redux-loop'
 
 const initialState = {
   isLoaded: false,
