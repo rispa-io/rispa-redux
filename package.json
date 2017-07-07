@@ -12,7 +12,8 @@
     "redux": "^3.6.0",
     "redux-act": "^1.0.0",
     "redux-logger": "^3.0.1",
-    "@csssr/redux-loop": "^2.2.3"
+    "@csssr/redux-loop": "^2.2.3",
+    "redux-form": "6.8.0"
   },
   "devDependencies": {
     "@rispa/eslint-config": "2.0.1",
