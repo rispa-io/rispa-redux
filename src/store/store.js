@@ -25,7 +25,7 @@ const configureStore = (history, data, customCompose) => {
   }
   middlewares.push(reduxRouterMiddleware)
 
-  // heplers middleware
+  // helpers middleware
   const helpers = {}
   const helpersMiddleware = () => next => action => next({ ...action, helpers })
   const addHelper = (key, helper) => {
