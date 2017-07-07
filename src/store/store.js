@@ -3,6 +3,7 @@ import logger from 'redux-logger'
 import routerMiddleware from 'react-router-redux/middleware'
 import { routerReducer } from 'react-router-redux/reducer'
 import { install as installReduxLoop, combineReducers } from '@csssr/redux-loop'
+import { reducer as formReducer } from 'redux-form'
 
 const patchStore = (store, key, data) => {
   const state = store.getState()
@@ -11,6 +12,7 @@ const patchStore = (store, key, data) => {
 
 const makeRootReducer = asyncReducers => combineReducers({
   router: routerReducer,
+  form: formReducer,
   ...asyncReducers,
 })
 
@@ -22,6 +24,14 @@ const configureStore = (history, data, customCompose) => {
     middlewares.push(logger)
   }
   middlewares.push(reduxRouterMiddleware)
+
+  // helpers middleware
+  const helpers = {}
+  const helpersMiddleware = () => next => action => next({ ...action, helpers })
+  const addHelper = (key, helper) => {
+    helpers[key] = helper
+  }
+  middlewares.push(helpersMiddleware)
 
   const composeEnhancers = customCompose || compose
 
@@ -46,6 +56,12 @@ const configureStore = (history, data, customCompose) => {
     asyncReducers[key] = reducer
     store.replaceReducer(makeRootReducer(asyncReducers))
   }
+
+  //
+  // add helper
+  //
+
+  store.addHelper = addHelper
 
   return store
 }
