@@ -34,3 +34,16 @@ test('should add logger middleware in dev mode', () => {
   expect(logger.default).toBeCalled()
   process.env.NODE_ENV = nodeEnv
 })
+
+test('should register helper', () => {
+  const reducer = jest.fn()
+  const helper = {}
+  const store = configureStore()
+  store.injectReducer('reducer', reducer)
+  store.addHelper('helper', helper)
+  store.dispatch({ type: 'TEST' })
+  expect(reducer).toBeCalledWith(undefined, {
+    type: 'TEST',
+    helpers: { helper },
+  })
+})
