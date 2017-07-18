@@ -20,7 +20,8 @@
   },
   "devDependencies": {
     "@rispa/eslint-config": "2.0.1",
-    "jest": "^19.0.2"
+    "jest": "^19.0.2",
+    "babel-core": "^6.24.0"
   },
   "scripts": {
     "lint": "rispa-eslint .",
@@ -37,6 +38,14 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }
