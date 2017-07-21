@@ -1,11 +1,11 @@
 {
   "name": "@rispa/redux",
   "rispa:name": "redux",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "rispa redux plugin",
   "dependencies": {
-    "@rispa/core": "3.0.0",
-    "@rispa/server": "3.0.0",
+    "@rispa/core": "3.0.1",
+    "@rispa/server": "3.0.1",
     "react": "15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
