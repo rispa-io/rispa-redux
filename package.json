@@ -19,7 +19,7 @@
     "@webpack-blocks/webpack2": "^0.4.0"
   },
   "devDependencies": {
-    "@rispa/eslint-config": "2.0.1",
+    "@rispa/eslint-config": ">=3.0.0",
     "jest": "^19.0.2",
     "babel-core": "^6.24.0"
   },
