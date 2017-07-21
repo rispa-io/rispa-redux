@@ -5,6 +5,7 @@
   "description": "rispa redux plugin",
   "dependencies": {
     "@rispa/core": "2.1.1",
+    "@rispa/server": "2.1.1",
     "react": "15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
@@ -13,11 +14,14 @@
     "redux-act": "^1.0.0",
     "redux-logger": "^3.0.1",
     "@csssr/redux-loop": "^2.2.3",
-    "redux-form": "6.8.0"
+    "redux-form": "6.8.0",
+    "md5": "^2.2.1",
+    "@webpack-blocks/webpack2": "^0.4.0"
   },
   "devDependencies": {
     "@rispa/eslint-config": "2.0.1",
-    "jest": "^19.0.2"
+    "jest": "^19.0.2",
+    "babel-core": "^6.24.0"
   },
   "scripts": {
     "lint": "rispa-eslint .",
@@ -34,6 +38,14 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }
