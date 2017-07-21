@@ -4,6 +4,7 @@ import routerMiddleware from 'react-router-redux/middleware'
 import { routerReducer } from 'react-router-redux/reducer'
 import { install as installReduxLoop, combineReducers } from '@csssr/redux-loop'
 import { reducer as formReducer } from 'redux-form'
+import whenReducer from '../when/reducer'
 
 const patchStore = (store, key, data) => {
   const state = store.getState()
@@ -13,6 +14,7 @@ const patchStore = (store, key, data) => {
 const makeRootReducer = asyncReducers => combineReducers({
   router: routerReducer,
   form: formReducer,
+  when: whenReducer,
   ...asyncReducers,
 })
 
