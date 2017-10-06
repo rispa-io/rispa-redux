@@ -2,26 +2,27 @@
   "name": "@rispa/redux",
   "rispa:name": "redux",
   "version": "3.0.1",
-  "description": "rispa redux plugin",
+  "description": "Rispa Redux plugin",
+  "rispa:activator": "./.rispa/activator.js",
   "dependencies": {
-    "@rispa/core": "3.0.1",
-    "@rispa/server": "3.0.1",
+    "@rispa/core": "^3.0.1",
+    "@rispa/babel": "^3.0.1",
+    "@rispa/webpack": "^3.0.1",
     "react": "15.5.4",
-    "react-redux": "^5.0.4",
-    "react-router-dom": "^4.1.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
-    "redux": "^3.6.0",
-    "redux-act": "^1.0.0",
-    "redux-logger": "^3.0.1",
+    "redux": "^3.7.2",
+    "redux-act": "^1.4.1",
+    "redux-logger": "^3.0.6",
     "@csssr/redux-loop": "^2.2.3",
-    "redux-form": "^7.0.1",
+    "redux-form": "^7.0.4",
     "md5": "^2.2.1",
     "@webpack-blocks/webpack2": "^0.4.0"
   },
   "devDependencies": {
     "@rispa/eslint-config": ">=3.0.0",
-    "jest": "^19.0.2",
-    "babel-core": "^6.24.0"
+    "jest": "^19.0.2"
   },
   "scripts": {
     "lint": "rispa-eslint .",

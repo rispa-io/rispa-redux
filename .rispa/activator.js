@@ -1,16 +1,13 @@
-import { init, build } from '@rispa/core/events'
-import { server } from '@rispa/server/events'
-import getBabelOptions from './babel-options'
-import webpackClientConfig from './client.wpc'
+const WebpackPluginApi = require('@rispa/webpack')
+const { default: BabelPluginApi } = require('@rispa/babel')
+const ReduxPlugin = require('../src/ReduxPlugin')
 
-const activator = on => {
-  const initHandler = registry => {
-    registry.add('webpack.client', webpackClientConfig)
-    registry.add('babel', getBabelOptions)
-  }
-
-  on(init(build), initHandler)
-  on(init(server), initHandler)
+function init(context, config) {
+  return new ReduxPlugin(context, config)
 }
 
-export default activator
+const after = [WebpackPluginApi.pluginName, BabelPluginApi.pluginName]
+
+module.exports = init
+
+module.exports.after = after
