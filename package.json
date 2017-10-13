@@ -3,7 +3,7 @@
   "rispa:name": "redux",
   "version": "3.0.1",
   "description": "Rispa Redux plugin",
-  "rispa:activator": "./.rispa/activator.js",
+  "rispa:activator": "./src/activator.js",
   "dependencies": {
     "@rispa/core": "^3.0.1",
     "@rispa/babel": "^3.0.1",
