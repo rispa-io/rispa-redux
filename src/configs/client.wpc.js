@@ -1,8 +1,8 @@
-import { group, env } from '@webpack-blocks/webpack2'
+const { group, env } = require('@webpack-blocks/webpack2')
 
 const resolve = require.resolve
 
-export default group([
+module.exports = group([
   env('development', [
     () => ({
       entry: {
