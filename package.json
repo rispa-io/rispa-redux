@@ -1,13 +1,13 @@
 {
   "name": "@rispa/redux",
   "rispa:name": "redux",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Rispa Redux plugin",
   "rispa:activator": "./src/activator.js",
   "dependencies": {
-    "@rispa/core": "^3.0.1",
-    "@rispa/babel": "^3.0.1",
-    "@rispa/webpack": "^3.0.1",
+    "@rispa/core": "4.0.0",
+    "@rispa/babel": "4.0.0",
+    "@rispa/webpack": "4.0.0",
     "react": "^15.5.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
