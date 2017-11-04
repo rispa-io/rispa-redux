@@ -1,7 +1,7 @@
 import { matchPath } from 'react-router-dom'
 import whenReducer, { register } from './reducer'
 
-export const createWhen = store => {
+export const createWhen = (store, ssr = false) => {
   const dispatches = []
   let listeners = []
 
@@ -9,7 +9,12 @@ export const createWhen = store => {
     const { prevState, predicate, effect } = listener
     listener.prevState = newState
     if (predicate(newState, prevState)) {
-      dispatches.push(store.dispatch(effect(newState)))
+      const action = effect(newState)
+
+      if (action) {
+        dispatches.ush(store.dispatch(action))
+      }
+
       listener.dispatched = true
     }
   }
@@ -42,12 +47,16 @@ export const createWhen = store => {
     listeners.push(listener)
   }
 
-  const whenOnce = (predicate, effect, key) => {
-    registerListener({ predicate, effect, key })
+  const whenOnce = (predicate, effect, key, dispatchOnServer = true) => {
+    if (!ssr || dispatchOnServer) {
+      registerListener({ predicate, effect, key })
+    }
   }
 
-  const whenEvery = (predicate, effect, key) => {
-    registerListener({ predicate, effect, key, every: true })
+  const whenEvery = (predicate, effect, key, dispatchOnServer = true) => {
+    if (!ssr || dispatchOnServer) {
+      registerListener({ predicate, effect, key, every: true })
+    }
   }
 
   const loadOnServer = () => {
