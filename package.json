@@ -3,7 +3,9 @@
   "rispa:name": "react-redux",
   "version": "4.1.1",
   "description": "Rispa Redux plugin",
-  "rispa:activator": "./src/activator.js",
+  "rispa:activator": "./activator/index.js",
+  "main": "./lib/index.js",
+  "jsnext:main": "./src/index.js",
   "dependencies": {
     "@rispa/core": "4.1.x",
     "@rispa/babel": "4.1.x",
@@ -23,9 +25,11 @@
   "devDependencies": {
     "@rispa/eslint-config": ">=3.0.0",
     "jest": "^19.0.2",
-    "babel-core": "^6.26.0"
+    "babel-core": "^6.26.0",
+    "babel-cli": "^6.26.0"
   },
   "scripts": {
+    "compile": "babel src --out-dir lib --ignore spec.js,test.js",
     "lint": "rispa-eslint .",
     "lint:fix": "rispa-eslint . --fix",
     "test": "jest",
