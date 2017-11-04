@@ -1,6 +1,6 @@
 {
   "name": "@rispa/redux",
-  "rispa:name": "redux",
+  "rispa:name": "react-redux",
   "version": "4.1.1",
   "description": "Rispa Redux plugin",
   "rispa:activator": "./src/activator.js",
