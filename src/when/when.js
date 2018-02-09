@@ -12,7 +12,7 @@ export const createWhen = (store, ssr = false) => {
       const action = effect(newState)
 
       if (action) {
-        dispatches.ush(store.dispatch(action))
+        dispatches.push(store.dispatch(action))
       }
 
       listener.dispatched = true
