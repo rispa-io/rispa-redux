@@ -1,5 +1,5 @@
 import { createReducer, createAction } from 'redux-act'
-import { loop, Effects } from '@csssr/redux-loop'
+import { loop, Cmd } from '@csssr/redux-loop'
 
 const initialState = {
   isLoaded: false,
@@ -13,14 +13,9 @@ const defaultNormalize = data => ({ data })
 
 export default function (params) {
   const { api, name, normalize = defaultNormalize } = params
-  const fetch = createAction(`${name}/fetch`)
-  const fetchSuccess = createAction(`${name}/fetchSuccess`)
-  const fetchFailure = createAction(`${name}/fetchFailure`)
-
-  const request = args =>
-    api(args)
-      .then(fetchSuccess)
-      .catch(fetchFailure)
+  const fetch = createAction(`${name}/FETCH`, (...args) => args)
+  const fetchSuccess = createAction(`${name}/FETCH_SUCCESS`)
+  const fetchFailure = createAction(`${name}/FETCH_FAILURE`)
 
   const handleFetch = (state, args) => loop({
     ...state,
@@ -28,7 +23,11 @@ export default function (params) {
     isLoading: true,
     isFailed: false,
     error: undefined,
-  }, Effects.promise(request, args))
+  }, Cmd.run(api, {
+    successActionCreator: fetchSuccess,
+    failActionCreator: fetchFailure,
+    args,
+  }))
 
   const handleFetchSuccess = (state, payload) => ({
     ...state,
@@ -64,7 +63,6 @@ export default function (params) {
 
   return {
     reducer,
-    request,
     fetch,
     fetchSuccess,
     fetchFailure,

@@ -3,10 +3,10 @@ import configureStore from './store'
 jest.mock('redux-logger')
 const logger = require('redux-logger')
 
-logger.default = jest.fn(() => next => action => next(action))
+logger.createLogger = jest.fn(() => () => next => action => next(action))
 
 test('should create store', () => {
-  const store = configureStore()
+  const store = configureStore({ ssr: true })
   expect(store).not.toBeUndefined()
 })
 
@@ -15,9 +15,12 @@ test('should inject reducer and patch store', () => {
     key: 1,
   }
   const reducer = state => state
-  const store = configureStore(null, {
-    test1: data,
-    test2: null,
+  const store = configureStore({
+    ssr: true,
+    data: {
+      test1: data,
+      test2: null,
+    },
   })
   expect(store.getState().test).toBeUndefined()
   store.injectReducer('test1', reducer)
@@ -30,15 +33,15 @@ test('should inject reducer and patch store', () => {
 test('should add logger middleware in dev mode', () => {
   const nodeEnv = process.env.NODE_ENV
   process.env.NODE_ENV = 'development'
-  configureStore(null)
-  expect(logger.default).toBeCalled()
+  configureStore({ ssr: false })
+  expect(logger.createLogger).toBeCalled()
   process.env.NODE_ENV = nodeEnv
 })
 
 test('should register helper', () => {
   const reducer = jest.fn()
   const helper = {}
-  const store = configureStore()
+  const store = configureStore({ ssr: true })
   store.injectReducer('reducer', reducer)
   store.addHelper('helper', helper)
   store.dispatch({ type: 'TEST' })

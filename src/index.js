@@ -6,7 +6,14 @@ export { configureStore }
 export { fetchGenerator }
 export { createWhen, match } from './when/when'
 export { createReducer, createAction } from 'redux-act'
-export { loop, Effects, getModel, getEffect } from '@csssr/redux-loop'
+export {
+  Cmd,
+  loop,
+  liftState,
+  getModel,
+  getCmd,
+  isLoop
+} from '@csssr/redux-loop'
 export { bindActionCreators } from 'redux'
 export { connect, Provider } from 'react-redux'
 export { replace, ConnectedRouter } from 'react-router-redux'
