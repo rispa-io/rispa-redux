@@ -17,6 +17,7 @@
     "redux": "^3.7.2",
     "redux-act": "^1.4.1",
     "redux-logger": "^3.0.6",
+    "redux-node-logger": "^0.1.0",
     "@csssr/redux-loop": "^2.2.3",
     "redux-form": "^7.1.0",
     "md5": "^2.2.1",
