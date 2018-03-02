@@ -1,25 +1,36 @@
 {
   "name": "@rispa/redux",
-  "rispa:name": "redux",
-  "version": "2.1.1",
-  "description": "rispa redux plugin",
+  "rispa:name": "react-redux",
+  "version": "4.1.11",
+  "description": "Rispa Redux plugin",
+  "rispa:activator": "./activator/index.js",
+  "main": "./lib/index.js",
+  "jsnext:main": "./src/index.js",
   "dependencies": {
-    "@rispa/core": "2.1.1",
-    "react": "15.5.4",
-    "react-redux": "^5.0.4",
-    "react-router-dom": "^4.1.1",
+    "@rispa/core": "4.1.x",
+    "@rispa/babel": "4.1.x",
+    "@rispa/webpack": "4.1.x",
+    "react": "^15.5.4",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
-    "redux": "^3.6.0",
-    "redux-act": "^1.0.0",
-    "redux-logger": "^3.0.1",
-    "@csssr/redux-loop": "^2.2.3",
-    "redux-form": "6.8.0"
+    "redux": "^3.7.2",
+    "redux-act": "^1.4.1",
+    "redux-logger": "^3.0.6",
+    "redux-node-logger": "^0.1.0",
+    "@csssr/redux-loop": "^4.2.5",
+    "redux-form": "^7.1.0",
+    "md5": "^2.2.1",
+    "@webpack-blocks/webpack2": "^0.4.0"
   },
   "devDependencies": {
-    "@rispa/eslint-config": "2.0.1",
-    "jest": "^19.0.2"
+    "@rispa/eslint-config": ">=3.0.0",
+    "jest": "^19.0.2",
+    "babel-core": "^6.26.0",
+    "babel-cli": "^6.26.0"
   },
   "scripts": {
+    "compile": "babel src --out-dir lib --ignore spec.js,test.js",
     "lint": "rispa-eslint .",
     "lint:fix": "rispa-eslint . --fix",
     "test": "jest",
@@ -27,13 +38,21 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+      "^.+\\.js$": "<rootDir>../../node_modules/babel-jest"
     },
     "transformIgnorePatterns": [
       "node_modules"
     ],
     "collectCoverageFrom": [
       "src/**/*.js"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }

@@ -1,14 +1,6 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-import routerMiddleware from 'react-router-redux/middleware'
-import { routerReducer } from 'react-router-redux/reducer'
 import { createWhen, match } from './when'
-
-const configureStore = () => compose(
-  applyMiddleware(routerMiddleware()),
-)(createStore)(combineReducers({
-  router: routerReducer,
-}))
+import configureStore from '../store/store'
 
 const dispatchLocationChange = (store, location) => {
   const payload = {
@@ -24,15 +16,16 @@ const testAction = {
 
 test('should create when function', () => {
   const store = configureStore()
-  const when = createWhen(store)
+  const when = createWhen({ store })
   expect(when).not.toBeUndefined()
+  expect(when.every).not.toBeUndefined()
   expect(when.clear).not.toBeUndefined()
   expect(when.loadOnServer).not.toBeUndefined()
 })
 
-test('should tirgger effect on location changes', () => {
+test('should trigger effect on location changes', () => {
   const store = configureStore()
-  const when = createWhen(store)
+  const when = createWhen({ store })
   const effect = jest.fn().mockReturnValue(testAction)
   when(match('/path'), effect)
   expect(effect.mock.calls.length).toBe(0)
@@ -40,22 +33,22 @@ test('should tirgger effect on location changes', () => {
   expect(effect.mock.calls.length).toBe(1)
 })
 
-test('should tirgger effect on `when` registration if current location matches', () => {
+test('should trigger effect on `when` registration if current location matches', () => {
   const store = configureStore()
-  const when = createWhen(store)
+  const when = createWhen({ store })
   const effect = jest.fn().mockReturnValue(testAction)
   dispatchLocationChange(store, '/path')
   when(match('/path'), effect)
   expect(effect.mock.calls.length).toBe(1)
 })
 
-test('should tirgger effect on each location change if `permanent` parameter used', () => {
+test('should trigger effect on each location change if when.every used', () => {
   const store = configureStore()
-  const when = createWhen(store)
+  const when = createWhen({ store })
   const effect = jest.fn().mockReturnValue(testAction)
   const effectPermanent = jest.fn().mockReturnValue(testAction)
   when(match('/path'), effect)
-  when(match('/pathPermanent'), effectPermanent, true)
+  when.every(match('/pathPermanent'), effectPermanent)
   dispatchLocationChange(store, '/path')
   dispatchLocationChange(store, '/pathPermanent')
   dispatchLocationChange(store, '/path')
@@ -64,18 +57,19 @@ test('should tirgger effect on each location change if `permanent` parameter use
   expect(effectPermanent.mock.calls.length).toBe(2)
 })
 
-test('should not tirgger effect if already dispatched', () => {
+test('should not trigger effect if when already registered', () => {
   const store = configureStore()
   dispatchLocationChange(store, '/path')
-  const when = createWhen(store, store.getState())
+  const when = createWhen({ store })
   const effect = jest.fn().mockReturnValue(testAction)
-  when(match('/path'), effect)
-  expect(effect.mock.calls.length).toBe(0)
+  when(match('/path'), effect, 'key')
+  when(match('/path'), effect, 'key')
+  expect(effect.mock.calls.length).toBe(1)
 })
 
 test('should clear listeners', () => {
   const store = configureStore()
-  const when = createWhen(store)
+  const when = createWhen({ store })
   const effect = jest.fn().mockReturnValue(testAction)
   when(match('/path'), effect)
   when.clear()
@@ -85,7 +79,7 @@ test('should clear listeners', () => {
 
 test('loadOnServer should wait for all effects being dispatched', done => {
   const store = configureStore()
-  const when = createWhen(store)
+  const when = createWhen({ store })
   const effect = jest.fn().mockReturnValue(testAction)
   when(match('/path'), effect)
   dispatchLocationChange(store, '/path')

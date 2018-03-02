@@ -2,6 +2,7 @@
 *.iml
 
 node_modules/
+lib/
 build/
 coverage/
 .DS_Store

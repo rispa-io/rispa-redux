@@ -1,4 +1,4 @@
-import { Effects, getModel, getEffect } from '@csssr/redux-loop'
+import { Cmd, getModel, getCmd } from '@csssr/redux-loop'
 import fetchGenerator from './reducer'
 
 const REDUCER_KEY = 'TEST'
@@ -10,7 +10,6 @@ const wrapState = state => ({
 describe('fetchGenerator with default normalization', () => {
   const {
     reducer,
-    request,
     fetch,
     fetchSuccess,
     fetchFailure,
@@ -33,15 +32,12 @@ describe('fetchGenerator with default normalization', () => {
 
   test('should send request on fetch', () => {
     const params = {}
-    const actual = getEffect(reducer(undefined, fetch(params)))
-    expect(actual).toEqual(Effects.promise(request, params))
-  })
-
-  test('should call api method on request', () => {
-    const payload = {}
-    request(payload)
-    expect(apiMock.mock.calls.length).toBe(1)
-    expect(apiMock.mock.calls[0][0]).toBe(payload)
+    const actual = getCmd(reducer(undefined, fetch(params)))
+    expect(actual).toEqual(Cmd.run(apiMock, {
+      successActionCreator: fetchSuccess,
+      failActionCreator: fetchFailure,
+      args: [params],
+    }))
   })
 
   test('should set correct state flags on fetch', () => {

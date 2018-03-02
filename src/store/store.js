@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import logger from 'redux-logger'
+import { applyMiddleware, compose as defaultCompose, createStore } from 'redux'
 import routerMiddleware from 'react-router-redux/middleware'
 import { routerReducer } from 'react-router-redux/reducer'
-import { install as installReduxLoop, combineReducers } from '@csssr/redux-loop'
+import { combineReducers, install as installReduxLoop } from '@csssr/redux-loop'
 import { reducer as formReducer } from 'redux-form'
+import whenReducer from '../when/reducer'
 
 const patchStore = (store, key, data) => {
   const state = store.getState()
@@ -13,15 +13,20 @@ const patchStore = (store, key, data) => {
 const makeRootReducer = asyncReducers => combineReducers({
   router: routerReducer,
   form: formReducer,
+  when: whenReducer,
   ...asyncReducers,
 })
 
-const configureStore = (history, data, customCompose) => {
+const configureStore = ({ history, data, customCompose } = {}) => {
   const reduxRouterMiddleware = routerMiddleware(history)
 
   const middlewares = []
   if (process.env.NODE_ENV === 'development') {
-    middlewares.push(logger)
+    if (process.env.SSR) {
+      middlewares.push(require('redux-node-logger')())
+    } else {
+      middlewares.push(require('redux-logger').createLogger())
+    }
   }
   middlewares.push(reduxRouterMiddleware)
 
@@ -33,9 +38,9 @@ const configureStore = (history, data, customCompose) => {
   }
   middlewares.push(helpersMiddleware)
 
-  const composeEnhancers = customCompose || compose
+  const compose = customCompose || defaultCompose
 
-  const finalCreateStore = composeEnhancers(
+  const finalCreateStore = compose(
     installReduxLoop(),
     applyMiddleware(...middlewares),
   )(createStore)

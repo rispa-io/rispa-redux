@@ -1,15 +1,20 @@
 import { matchPath } from 'react-router-dom'
+import whenReducer, { register } from './reducer'
 
-export const createWhen = (store, initialState) => {
+export const createWhen = ({ store, ssr = false } = {}) => {
   const dispatches = []
   let listeners = []
-  let currentState = initialState
 
   const processListener = (newState, listener) => {
     const { prevState, predicate, effect } = listener
     listener.prevState = newState
     if (predicate(newState, prevState)) {
-      dispatches.push(store.dispatch(effect(newState)))
+      const action = effect(newState)
+
+      if (action) {
+        dispatches.push(store.dispatch(action))
+      }
+
       listener.dispatched = true
     }
   }
@@ -18,28 +23,59 @@ export const createWhen = (store, initialState) => {
     const newState = store.getState()
 
     listeners.forEach(listener => {
-      if (!listener.dispatched || listener.permanent) {
+      if (!listener.dispatched || listener.every) {
         processListener(newState, listener)
       }
     })
   })
 
-  const when = (predicate, effect, permanent) => {
-    const listener = { predicate, effect, permanent }
-    if (currentState) {
-      listener.prevState = currentState
-      listener.dispatched = !!predicate(currentState)
+  const registerListener = listener => {
+    const { key, predicate } = listener
+    const state = store.getState()
+    const keys = whenReducer.getKeys(state)
+
+    if (keys.indexOf(key) === -1) {
+      if (key) {
+        store.dispatch(register(key))
+      }
+      processListener(store.getState(), listener)
+    } else {
+      listener.dispatched = !!predicate(state)
+      listener.prevState = state
     }
-    processListener(store.getState(), listener)
+
     listeners.push(listener)
   }
 
-  when.clear = () => {
-    currentState = store.getState()
+  const whenOnce = (predicate, effect, key, dispatchOnServer = true) => {
+    if (!ssr || dispatchOnServer) {
+      registerListener({ predicate, effect, key })
+    }
+  }
+
+  const whenEvery = (predicate, effect, key, dispatchOnServer = true) => {
+    if (!ssr || dispatchOnServer) {
+      registerListener({ predicate, effect, key, every: true })
+    }
+  }
+
+  const loadOnServer = () => {
+    if (dispatches.length === 0) {
+      return true
+    }
+
+    return dispatches.shift()
+      .then(loadOnServer)
+  }
+
+  const clearListeners = () => {
     listeners = []
   }
 
-  when.loadOnServer = () => Promise.all(dispatches)
+  const when = whenOnce
+  when.every = whenEvery
+  when.loadOnServer = loadOnServer
+  when.clear = clearListeners
 
   return when
 }
@@ -48,7 +84,8 @@ export const createWhen = (store, initialState) => {
 // predicates
 //
 
-const getPathname = location => location ? `${location.pathname}${location.search}` : ''
+const getPathname = location =>
+  location ? `${location.pathname}${location.search}` : ''
 
 export const match = path => (state, prevState) => {
   const pathname = getPathname(state.router.location)
