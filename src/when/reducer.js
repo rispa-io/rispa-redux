@@ -4,7 +4,7 @@ const initialState = {
   keys: [],
 }
 
-export const register = createAction(`WHEN/REGISTER`)
+export const register = createAction('WHEN/REGISTER')
 
 const handleRegister = (state, key) => ({
   keys: [
