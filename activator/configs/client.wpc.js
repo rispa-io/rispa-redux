@@ -34,7 +34,7 @@ module.exports = group([
           resolve('redux-act/dist/redux-act.min.js'),
           resolve('redux-form/dist/redux-form.min.js'),
           resolve('react-router-redux/umd/react-router-redux.min.js'),
-          resolve('@csssr/redux-loop'),н
+          resolve('@csssr/redux-loop'),
         ],
       },
       resolve: {
