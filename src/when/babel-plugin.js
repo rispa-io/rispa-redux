@@ -6,12 +6,12 @@ const hash = ENV === 'production'
   ? filename => md5(filename)
   : filename => filename
 
-module.exports = ({ types: t }) => ({
+module.exports = ({ types }) => ({
   visitor: {
     CallExpression(path, state) {
       const isWhen = path.node.callee.name === 'when'
       const isWhenEvery = (
-        t.isMemberExpression(path.node.callee) &&
+        types.isMemberExpression(path.node.callee) &&
         path.node.callee.object.name === 'when' &&
         path.node.callee.property.name === 'every'
       )
@@ -19,11 +19,11 @@ module.exports = ({ types: t }) => ({
       if (
         (isWhen || isWhenEvery) &&
         path.node.arguments.length === 2 &&
-        t.isCallExpression(path.node.arguments[0]) &&
+        types.isCallExpression(path.node.arguments[0]) &&
         path.node.arguments[0].callee.name === 'match'
       ) {
         const key = hash(state.file.opts.filename)
-        path.node.arguments.push(t.stringLiteral(key))
+        path.node.arguments.push(types.stringLiteral(key))
       }
     },
   },
