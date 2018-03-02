@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import { applyMiddleware, compose as defaultCompose, createStore } from 'redux'
 import routerMiddleware from 'react-router-redux/middleware'
 import { routerReducer } from 'react-router-redux/reducer'
