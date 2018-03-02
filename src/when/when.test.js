@@ -79,7 +79,7 @@ test('should clear listeners', () => {
 
 test('loadOnServer should wait for all effects being dispatched', done => {
   const store = configureStore()
-  const when = createWhen({ store })
+  const when = createWhen({ store, ssr: true })
   const effect = jest.fn().mockReturnValue(testAction)
   when(match('/path'), effect)
   dispatchLocationChange(store, '/path')

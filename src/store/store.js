@@ -22,6 +22,7 @@ const configureStore = ({ history, data, customCompose } = {}) => {
   const reduxRouterMiddleware = routerMiddleware(history)
 
   const middlewares = []
+  /* istanbul ignore next */
   if (process.env.NODE_ENV === 'development') {
     if (process.env.SSR) {
       middlewares.push(require('redux-node-logger')())
