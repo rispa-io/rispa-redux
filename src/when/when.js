@@ -1,7 +1,7 @@
 import { matchPath } from 'react-router-dom'
 import whenReducer, { register } from './reducer'
 
-export const createWhen = ({ store, ssr = false }) => {
+export const createWhen = ({ store, ssr = false } = {}) => {
   const dispatches = []
   let listeners = []
 
