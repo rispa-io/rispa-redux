@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import { applyMiddleware, compose as defaultCompose, createStore } from 'redux'
 import routerMiddleware from 'react-router-redux/middleware'
 import { routerReducer } from 'react-router-redux/reducer'
@@ -21,6 +22,7 @@ const configureStore = ({ history, data, customCompose } = {}) => {
   const reduxRouterMiddleware = routerMiddleware(history)
 
   const middlewares = []
+  /* istanbul ignore next */
   if (process.env.NODE_ENV === 'development') {
     if (process.env.SSR) {
       middlewares.push(require('redux-node-logger')())

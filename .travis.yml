@@ -13,8 +13,8 @@ install:
 
 script:
   - ris-test-utils init
-  - ris-test-utils run redux lint
-  - ris-test-utils run redux test:coverage
+  - ris-test-utils run @rispa/redux lint
+  - ris-test-utils run @rispa/redux test:coverage
 
 notifications:
   slack:

@@ -12,7 +12,7 @@ export {
   liftState,
   getModel,
   getCmd,
-  isLoop
+  isLoop,
 } from '@csssr/redux-loop'
 export { bindActionCreators } from 'redux'
 export { connect, Provider } from 'react-redux'
