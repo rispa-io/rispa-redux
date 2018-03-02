@@ -20,6 +20,7 @@ module.exports = group([
         alias: {
           'redux-form$': resolve('redux-form'),
           'react-router-redux$': resolve('react-router-redux'),
+          'redux-logger$': resolve('redux-logger'),
         },
       },
     }),
@@ -33,7 +34,6 @@ module.exports = group([
           resolve('redux-act/dist/redux-act.min.js'),
           resolve('redux-form/dist/redux-form.min.js'),
           resolve('react-router-redux/umd/react-router-redux.min.js'),
-          resolve('redux-logger/dist/redux-logger.js'),
           resolve('@csssr/redux-loop'),
         ],
       },
@@ -44,7 +44,6 @@ module.exports = group([
           'redux-act$': resolve('redux-act/dist/redux-act.min.js'),
           'redux-form$': resolve('redux-form/dist/redux-form.min.js'),
           'react-router-redux$': resolve('react-router-redux/umd/react-router-redux.min.js'),
-          'redux-logger$': resolve('redux-logger/dist/redux-logger.js'),
         },
       },
     }),

@@ -1,15 +1,15 @@
 {
   "name": "@rispa/redux",
   "rispa:name": "react-redux",
-  "version": "4.1.11",
+  "version": "4.2.1",
   "description": "Rispa Redux plugin",
   "rispa:activator": "./activator/index.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
   "dependencies": {
-    "@rispa/core": "4.1.x",
-    "@rispa/babel": "4.1.x",
-    "@rispa/webpack": "4.1.x",
+    "@rispa/core": "4.2.x",
+    "@rispa/babel": "4.2.x",
+    "@rispa/webpack": "4.2.x",
     "react": "^15.5.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
@@ -17,7 +17,8 @@
     "redux": "^3.7.2",
     "redux-act": "^1.4.1",
     "redux-logger": "^3.0.6",
-    "@csssr/redux-loop": "^2.2.3",
+    "redux-node-logger": "^0.1.0",
+    "@csssr/redux-loop": "^4.2.5",
     "redux-form": "^7.1.0",
     "md5": "^2.2.1",
     "@webpack-blocks/webpack2": "^0.4.0"
@@ -37,7 +38,7 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+      "^.+\\.js$": "<rootDir>../../node_modules/babel-jest"
     },
     "transformIgnorePatterns": [
       "node_modules"
