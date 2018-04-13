@@ -1,33 +1,33 @@
 {
   "name": "@rispa/redux",
   "rispa:name": "react-redux",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Rispa Redux plugin",
   "rispa:activator": "./activator/index.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
   "dependencies": {
-    "@rispa/core": "4.2.x",
+    "@csssr/redux-loop": "^4.2.5",
     "@rispa/babel": "4.2.x",
+    "@rispa/core": "4.2.x",
     "@rispa/webpack": "4.2.x",
+    "@webpack-blocks/webpack2": "^0.4.0",
+    "md5": "^2.2.1",
     "react": "^15.5.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
     "redux-act": "^1.4.1",
-    "redux-logger": "^3.0.6",
-    "redux-node-logger": "^0.1.0",
-    "@csssr/redux-loop": "^4.2.5",
     "redux-form": "^7.1.0",
-    "md5": "^2.2.1",
-    "@webpack-blocks/webpack2": "^0.4.0"
+    "redux-logger": "^3.0.6",
+    "redux-node-logger": "^0.1.0"
   },
   "devDependencies": {
     "@rispa/eslint-config": ">=3.0.0",
-    "jest": "^19.0.2",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-cli": "^6.26.0"
+    "jest": "^19.0.2"
   },
   "scripts": {
     "compile": "babel src --out-dir lib --ignore spec.js,test.js",
