@@ -87,12 +87,12 @@ export const createWhen = ({ store }) => {
 const getPathname = location =>
   location ? `${location.pathname}${location.search}` : ''
 
-export const match = path => (state, prevState) => {
+export const match = (path, options) => (state, prevState) => {
   const pathname = getPathname(state.router.location)
 
   if (prevState) {
     const prevPathname = prevState && getPathname(prevState.router.location)
-    return pathname !== prevPathname ? matchPath(pathname, { path }) : false
+    return pathname !== prevPathname ? matchPath(pathname, { path, ...options }) : false
   }
 
   return matchPath(pathname, { path })
