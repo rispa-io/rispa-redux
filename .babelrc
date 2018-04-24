@@ -1,5 +1,10 @@
 {
   "presets": [
-    "@rispa/babel/config"
+    "@rispa/babel/base",
+    ["env", {
+      "targets": {
+        "chrome": 56
+      }
+    }]
   ]
 }
