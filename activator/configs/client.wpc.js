@@ -1,10 +1,10 @@
-const { group, env } = require('@webpack-blocks/webpack2')
+const { group, env } = require('@webpack-blocks/webpack')
 
 const resolve = require.resolve
 
 module.exports = group([
   env('development', [
-    () => ({
+    (context, { merge }) => merge({
       entry: {
         vendor: [
           resolve('redux'),
@@ -26,7 +26,7 @@ module.exports = group([
     }),
   ]),
   env('production', [
-    () => ({
+    (context, { merge }) => merge({
       entry: {
         vendor: [
           resolve('redux/dist/redux.min.js'),

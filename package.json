@@ -11,7 +11,7 @@
     "@rispa/babel": "4.2.x",
     "@rispa/core": "4.2.x",
     "@rispa/webpack": "4.2.x",
-    "@webpack-blocks/webpack2": "^0.4.0",
+    "@webpack-blocks/webpack": "^2.0.0-alpha",
     "md5": "^2.2.1",
     "react": "^15.5.4",
     "react-redux": "^5.0.6",
