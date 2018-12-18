@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@rispa/eslint-config": ">=3.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "jest": "^19.0.2"
+    "jest": "^23.6.0",
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2"
   },
   "scripts": {
     "compile": "babel src --out-dir lib --ignore spec.js,test.js",
@@ -35,6 +35,17 @@
     "lint:fix": "rispa-eslint . --fix",
     "test": "jest",
     "test:coverage": "jest --coverage"
+  },
+  "babel": {
+    "presets": [
+      ["@rispa/babel/preset-app", {
+        "env": {
+          "targets": {
+            "chrome": 56
+          }
+        }
+      }]
+    ]
   },
   "jest": {
     "transform": {
