@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import { transformFileSync } from 'babel-core'
+import { transformFileSync } from '@babel/core'
 import md5 from 'md5'
 
 const fixturesDir = path.join(__dirname, 'fixtures')

@@ -1,4 +1,4 @@
-import configureStore from './store'
+import configureStore from '../store'
 
 jest.mock('redux-logger')
 const logger = require.requireMock('redux-logger')
