@@ -1,4 +1,4 @@
-import { matchPath } from 'react-router-dom'
+import { matchPath } from 'react-router'
 import whenReducer, { register } from './reducer'
 
 export const createWhen = ({ store }) => {

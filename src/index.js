@@ -1,4 +1,3 @@
-import reduxFormActions from 'redux-form/lib/actions'
 import fetchGenerator from './hor/fetch/reducer'
 import configureStore from './store/store'
 
@@ -13,15 +12,7 @@ export {
   getModel,
   getCmd,
   isLoop,
-} from '@csssr/redux-loop'
+} from 'redux-loop'
 export { bindActionCreators } from 'redux'
 export { connect, Provider } from 'react-redux'
-export { replace, ConnectedRouter } from 'react-router-redux'
-export {
-  reduxForm,
-  Field,
-  SubmissionError,
-  getFormValues,
-  actionTypes as reduxFormActionTypes,
-} from 'redux-form'
-export { reduxFormActions }
+export { replace, ConnectedRouter } from 'connected-react-router'

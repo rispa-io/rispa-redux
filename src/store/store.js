@@ -1,9 +1,8 @@
 /* eslint-disable global-require */
 import { applyMiddleware, compose as defaultCompose, createStore } from 'redux'
-import routerMiddleware from 'react-router-redux/middleware'
-import { routerReducer } from 'react-router-redux/reducer'
-import { combineReducers, install as installReduxLoop } from '@csssr/redux-loop'
-import { reducer as formReducer } from 'redux-form'
+import { routerMiddleware, connectRouter } from 'connected-react-router'
+import { combineReducers, install as installReduxLoop } from 'redux-loop'
+
 import whenReducer from '../when/reducer'
 
 const patchStore = (store, key, data) => {
@@ -11,18 +10,13 @@ const patchStore = (store, key, data) => {
   state[key] = data
 }
 
-const makeRootReducer = asyncReducers => combineReducers({
-  router: routerReducer,
-  form: formReducer,
-  when: whenReducer,
-  ...asyncReducers,
-})
-
 const configureStore = ({ history, data, customCompose } = {}) => {
-  const reduxRouterMiddleware = routerMiddleware(history)
-
+  const reducers = {
+    router: connectRouter(history),
+    when: whenReducer,
+  }
   const middlewares = []
-  /* istanbul ignore next */
+
   if (process.env.NODE_ENV === 'development') {
     if (process.env.SSR) {
       middlewares.push(require('redux-node-logger')())
@@ -30,7 +24,7 @@ const configureStore = ({ history, data, customCompose } = {}) => {
       middlewares.push(require('redux-logger').createLogger())
     }
   }
-  middlewares.push(reduxRouterMiddleware)
+  middlewares.push(routerMiddleware(history))
 
   // helpers middleware
   const helpers = {}
@@ -47,26 +41,16 @@ const configureStore = ({ history, data, customCompose } = {}) => {
     applyMiddleware(...middlewares),
   )(createStore)
 
-  const store = finalCreateStore(makeRootReducer(), data)
-
-  //
-  // async reducers
-  //
-
-  const asyncReducers = {}
+  const store = finalCreateStore(combineReducers(reducers), data)
 
   store.injectReducer = (key, reducer) => {
     if (data && data[key]) {
       patchStore(store, key, data[key])
     }
 
-    asyncReducers[key] = reducer
-    store.replaceReducer(makeRootReducer(asyncReducers))
+    reducers[key] = reducer
+    store.replaceReducer(combineReducers(reducers))
   }
-
-  //
-  // add helper
-  //
 
   store.addHelper = addHelper
 
