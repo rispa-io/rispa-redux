@@ -7,15 +7,19 @@ const clientWebpackConfig = require('./configs/client.wpc')
 const whenBabelPlugin = path.resolve(__dirname, '../lib/when/babel-plugin.js')
 
 class ReduxPlugin extends PluginInstance {
-  constructor(context, config) {
-    super(context, config)
+  constructor(context) {
+    super(context)
 
     this.webpack = context.get(WebpackPluginApi.pluginName)
     this.babel = context.get(BabelPluginApi.pluginName)
   }
 
   start() {
-    this.babel.addPlugin(whenBabelPlugin)
+    this.babel.addCommonConfig({
+      plugins: [
+        whenBabelPlugin,
+      ],
+    })
     this.webpack.addClientConfig(clientWebpackConfig)
   }
 }
